@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="college_root_menu"
+            name="College"/>
+    <!--Menu for Student-->
+    <menuitem
+            id="college_students_menu"
+            parent="college_root_menu"
+            action="college_students_view_action"
+            sequence="2"/>
+    <!--Menu for Admission-->
+    <menuitem
+            id="college_admission_menu"
+            name="Admission"
+            parent="college_root_menu"
+            action="college_admission_view_action"
+            sequence="1"/>
+    <!--Menu for Configuration-->
+    <menuitem
+            id="college_configuration_menu"
+            name="Configuration"
+            parent="college_root_menu"
+            sequence="5"/>
+    <!--Menu for Course-->
+    <menuitem
+            id="college_course_menu"
+            name="Course"
+            parent="college_configuration_menu"
+            action="college_course_view_action"
+            sequence="1"/>
+    <!--Menu for Semester-->
+    <menuitem
+            id="college_semester_menu"
+            name="Semester"
+            parent="college_configuration_menu"
+            action="college_semester_view_action"
+            sequence="2"/>
+    <!--Menu for Class-->
+    <menuitem
+            id="college_class_menu"
+            name="Class"
+            parent="college_root_menu"
+            action="college_class_view_action"
+            sequence="4"/>
+    <!--Main menu for Exam-->
+    <menuitem
+            id="college_exam_main_menu"
+            name="Exam"
+            parent="college_root_menu"
+            sequence="3"/>
+    <!--Menu for Exam-->
+    <menuitem
+            id="college_exam_menu"
+            name="Exam"
+            parent="college_exam_main_menu"
+            action="college_exam_view_action"
+            sequence="1"/>
+    <!--Menu for Promotion-->
+    <menuitem
+            id="college_promotion_menu"
+            name="Promotion"
+            parent="college_exam_main_menu"
+            action="college_promotion_view_action"
+            sequence="2"/>
+</odoo>

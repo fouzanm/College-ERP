@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for course-->
+    <record id="college_course_view_tree" model="ir.ui.view">
+        <field name="name">Course List</field>
+        <field name="model">college.course</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="duration"/>
+                <field name="no_of_sem"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for course-->
+    <record id="college_course_view_form" model="ir.ui.view">
+        <field name="name">Course Form</field>
+        <field name="model">college.course</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <label for="duration"  class="oe_inline"/>
+                            <div>
+                                <field name="duration" class="oe_inline"/>
+                                <label for="duration"
+                                       string="years" class="oe_inline"/>
+                            </div>
+                            <field name="no_of_sem"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Semester">
+                            <field name="semester_ids">
+                                <tree string="Semester Line" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="course_id" readonly="1"/>
+                                    <field name="sem_no"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Search view for course-->
+    <record id="college_course_view_search" model="ir.ui.view">
+        <field name="name">Course Search</field>
+        <field name="model">college.course</field>
+        <field name="arch" type="xml">
+            <search string="Search Course">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="no_of_sem"/>
+            </search>
+        </field>
+    </record>
+    <!--Action for course-->
+    <record id="college_course_view_action" model="ir.actions.act_window">
+        <field name="name">Course</field>
+        <field name="res_model">college.course</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

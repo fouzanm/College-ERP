@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Academic year form-->
+    <record id="college_academic_year_view_form" model="ir.ui.view">
+        <field name="name">Academic Year Form</field>
+        <field name="model">college.academic.year</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="academic_start"/>
+                            <field name="academic_end"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

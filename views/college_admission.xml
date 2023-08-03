@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for admission-->
+    <record id="college_admission_view_tree" model="ir.ui.view">
+        <field name="name">Admission List</field>
+        <field name="model">college.admission</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="ad_no"/>
+                <field name="course_id"/>
+                <field name="date_application" optional="show"/>
+                <field name="ad_date" optional="hide"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for admission-->
+    <record id="college_admission_view_form" model="ir.ui.view">
+        <field name="name">Admission Form</field>
+        <field name="model">college.admission</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_admission_confirm" type="object" string="Confirm" class="oe_highlight"
+                            attrs="{'invisible':[('state', 'in', ('done','rejected','approved'))]}"/>
+                    <button name="action_admission_reject" type="object" string="Reject" states="application"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1 >
+                            <field name="ad_no"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="f_name"/>
+                            <field name='phone' widget="phone"/>
+                            <field name='ad_date'/>
+                        </group>
+                        <group>
+                            <field name="l_name"/>
+                            <field name='email' widget="email"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Personal Details">
+                            <group>
+                                <group>
+                                    <field name="father"/>
+                                    <field name="mother"/>
+                                    <field name="communication_address"/>
+                                    <field name="same_address"/>
+                                    <field name="permanent_address"
+                                           attrs="{'invisible':
+                                           [('same_address', '=', True)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string=" Course Details">
+                            <group>
+                                <group>
+                                    <field name="semester_id"/>
+                                    <field name="date_application"/>
+                                </group>
+                                <group>
+                                    <field name="course_id"
+                                           options="{'no_create': True,
+                                           'no_create_edit':True}" />
+                                    <field name="academic_year_id"/>
+                                </group>
+                                <group>
+                                    <field name="prev_qualification"/>
+                                    <field name="institute"/>
+                                </group>
+                                <group>
+                                    <field name="tc_ids"
+                                           widget="many2many_binary"
+                                           string="Transfer Certificate"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Search view for admission-->
+    <record id="college_admission_view_search" model="ir.ui.view">
+        <field name="name">Admission Search</field>
+        <field name="model">college.admission</field>
+        <field name="arch" type="xml">
+            <search string="Search Admission">
+                <field name="name"/>
+                <field name="ad_no"/>
+                <field name="ad_date"/>
+                <field name="course_id"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+    <!--Action for admission-->
+    <record id="college_admission_view_action" model="ir.actions.act_window">
+        <field name="name">Admission</field>
+        <field name="res_model">college.admission</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

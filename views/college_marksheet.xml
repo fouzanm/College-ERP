@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for Mark sheet-->
+    <record id="college_marksheet_view_tree" model="ir.ui.view">
+        <field name="name">Mark List</field>
+        <field name="model">college.marksheet</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="students_id"/>
+                <field name="exam_id"/>
+                <field name="class_id"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for Mark sheet-->
+    <record id="college_marksheet_view_form" model="ir.ui.view">
+        <field name="name">Mark sheet Form</field>
+        <field name="model">college.marksheet</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <div class="oe_title"><h1>
+                        <field name="students_id" readonly="1"/>
+                    </h1></div>
+                    <group>
+                        <group>
+                            <field name="class_id"/>
+                            <field name="semester_id"/>
+                            <field name="result" widget="boolean_toggle"/>
+                            <field name="rank"/>
+                        </group>
+                        <group>
+                            <field name="exam_id"/>
+                            <field name="course_id"/>
+                            <field name="total_mark"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Mark List">
+                             <field name="papers_ids">
+                                <tree string="Mark List Line" editable="bottom">
+                                    <field name="subject_id"/>
+                                    <field name="result" widget="boolean_toggle"/>
+                                    <field name="obtained_mark" sum="Total" force_save="1"/>
+                                    <field name="pass_mark"/>
+                                    <field name="max_mark" sum="Total" force_save="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Action view for Mark sheet-->
+    <record id="college_marksheet_view_action" model="ir.actions.act_window">
+        <field name="name">Mark Sheet</field>
+        <field name="res_model">college.marksheet</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

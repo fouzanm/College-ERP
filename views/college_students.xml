@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for students-->
+    <record id="college_students_view_tree" model="ir.ui.view">
+        <field name="name">Students List</field>
+        <field name="model">college.students</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="ad_no"/>
+                <field name="course_id"/>
+                <field name="semester_id"/>
+                <field name="academic_year_id"/>
+                <field name="ad_date" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for students-->
+     <record id="college_students_view_form" model="ir.ui.view">
+        <field name="name">Students Form</field>
+        <field name="model">college.students</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ad_no"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="f_name"/>
+                            <field name='class_id'/>
+                            <field name="course_id"/>
+                            <field name='phone' widget="phone"/>
+                            <field name='email' widget="email"/>
+                        </group>
+                        <group>
+                            <field name="l_name"/>
+                            <field name="semester_id"/>
+                            <field name="academic_year_id"/>
+                            <field name='ad_date'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Personal Details">
+                            <group>
+                                <group>
+                                    <field name="father"/>
+                                    <field name="mother"/>
+                                    <field name="communication_address"/>
+                                    <field name="same_address"/>
+                                    <field name="permanent_address"
+                                           attrs="{'invisible':
+                                           [('same_address', '=', True)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!--Search view for students-->
+    <record id="college_students_view_search" model="ir.ui.view">
+        <field name="name">Students Search</field>
+        <field name="model">college.students</field>
+        <field name="arch" type="xml">
+            <search string="Search Students">
+                <field name="name"/>
+                <field name="ad_no"/>
+                <field name="course_id"/>
+                <field name="academic_year_id"/>
+                <field name="ad_date"/>
+            </search>
+        </field>
+    </record>
+    <!--Action for students-->
+    <record id="college_students_view_action" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">college.students</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

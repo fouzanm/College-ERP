@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for exam-->
+    <record id="college_exam_view_tree" model="ir.ui.view">
+        <field name="name">Exam List</field>
+        <field name="model">college.exam</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="class_id"/>
+                <field name="semester_id" optional="show"/>
+                <field name="course_id" optional="hide"/>
+                <field name="start_date" optional="hide"/>
+                <field name="end_date" optional="hide"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for exam-->
+    <record id="college_exam_view_form" model="ir.ui.view">
+        <field name="name">Exam Form</field>
+        <field name="model">college.exam</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_exam_confirm" type="object" string="Confirm" class="oe_highlight"
+                            attrs="{'invisible':[('state', '!=', 'draft')]}"/>
+                    <button name="generate_marksheet" type="object"
+                            string="Generate Mark Sheet" class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','confirm')]}"
+                    />
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object"
+                                name="get_students" icon="fa-check-square-o"
+                                attrs="{'invisible': [('students_count','=', 0)]}">
+                            <field string="Valuation" name="students_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="get_marksheet" icon="fa-address-card"
+                                attrs="{'invisible': ['|',('state', '!=', 'completed'),('marksheet_count','=', 0)]}">
+                            <field string="Mark Sheet" name="marksheet_count"
+                                   widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                            <field name="semester_id"/>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="class_id"
+                                   options="{'no_create': True,
+                                   'no_create_edit':True}"/>
+                            <field name="course_id"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Papers">
+                            <field name="papers_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Search view for exam-->
+    <record id="college_exam_view_search" model="ir.ui.view">
+        <field name="name">Exam Search</field>
+        <field name="model">college.exam</field>
+        <field name="arch" type="xml">
+            <search string="Search Exam">
+                <field name="name"/>
+                <field name="type"/>
+            </search>
+        </field>
+    </record>
+    <!--Action for exam-->
+    <record id="college_exam_view_action" model="ir.actions.act_window">
+        <field name="name">Exam</field>
+        <field name="res_model">college.exam</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

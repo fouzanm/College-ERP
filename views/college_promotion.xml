@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for College Promotion-->
+    <record id="college_promotion_view_tree" model="ir.ui.view">
+        <field name="name">Promotion List</field>
+        <field name="model">college.promotion</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="class_id"/>
+
+            </tree>
+        </field>
+    </record>
+    <!--Form view for  College Promotion-->
+    <record id="college_promotion_view_form" model="ir.ui.view">
+        <field name="name">Promotion Form</field>
+        <field name="model">college.promotion</field>
+        <field name="arch" type="xml">
+            <form name="Form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_generate_students" type="object" string="Generate Promotion" class="oe_highlight"
+                            states="draft"/>
+                    <button name="action_promote_students" type="object" string="Promote" class="oe_highlight"
+                            states="pending"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="exam_id"/>
+                            <field name="class_id"/>
+                            <field name="semester_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Promoted students">
+                            <field name="promoted_students_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Action view for Promotion-->
+    <record id="college_promotion_view_action" model="ir.actions.act_window">
+        <field name="name">Promotion</field>
+        <field name="res_model">college.promotion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

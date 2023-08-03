@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for Papers of Exam-->
+    <record id="college_papers_view_tree" model="ir.ui.view">
+        <field name="name">Papers List</field>
+        <field name="model">college.papers</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="subject_id"/>
+                <field name="pass_mark"/>
+                <field name="max_mark"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for Papers of Exam-->
+    <record id="college_papers_view_form" model="ir.ui.view">
+        <field name="name">Papers Form</field>
+        <field name="model">college.papers</field>
+        <field name="arch" type="xml">
+            <form name="Form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="subject_id"/>
+                            <field name="pass_mark"/>
+                            <field name="max_mark"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

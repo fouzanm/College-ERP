@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for semester-->
+    <record id="college_semester_view_tree" model="ir.ui.view">
+        <field name="name">Semester List</field>
+        <field name="model">college.semester</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="course_id"/>
+                <field name="sem_no"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for semester-->
+    <record id="college_semester_view_form" model="ir.ui.view">
+        <field name="name">Semester Form</field>
+        <field name="model">college.semester</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"
+                                   attrs="{'invisible':['|',
+                                   ('sem_no', '=', 0),
+                                   ('course_id','=', False)]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="sem_no"/>
+                        <field name="course_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Syllabus">
+                            <field name="syllabus_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Search view for semester-->
+    <record id="college_semester_view_search" model="ir.ui.view">
+        <field name="name">Semester Search</field>
+        <field name="model">college.semester</field>
+        <field name="arch" type="xml">
+            <search string="Search Semester">
+                <field name="name"/>
+                <field name="course_id"/>
+                <field name="sem_no"/>
+            </search>
+        </field>
+    </record>
+    <!--Action view for semester-->
+    <record id="college_semester_view_action" model="ir.actions.act_window">
+        <field name="name">Semester</field>
+        <field name="res_model">college.semester</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

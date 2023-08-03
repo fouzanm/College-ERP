@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Email template for admission confirm-->
+    <record id="college_admission_email_template" model="mail.template">
+       <field name="name">Email Template</field>
+       <field name="model_id" ref="college.model_college_admission"/>
+       <field name="email_from">{{ user.email }}</field>
+       <field name="email_to">{{ object.email }}</field>
+       <field name="subject">Subject</field>
+       <field name="body_html" type="html">
+           <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear <t t-out="object.name"/>,
+                    <br/>
+                    <br/>
+                        Congratulation, You got admission.
+                    <br/>
+                        Admission No: <t t-out="object.ad_no"/>
+                    <br/>
+                        Joining Date: <t t-out="object.ad_date"/>
+                    <br/>
+                    <br/>
+                    Regards
+                </p>
+           </div>
+       </field>
+    </record>
+    <!--Email template for admission rejection-->
+    <record id="college_admission_rejected_email_template"
+            model="mail.template">
+           <field name="name">Email Template</field>
+           <field name="model_id" ref="college.model_college_admission"/>
+           <field name="email_from">{{ user.email }}</field>
+           <field name="email_to">{{ object.email }}</field>
+           <field name="subject">Subject</field>
+           <field name="body_html" type="html">
+               <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear <t t-out="object.name"/>,
+                        <br/>
+                        <br/>
+                            Your application got rejected.
+                        <br/>
+                        <br/>
+                        Regards
+                    </p>
+               </div>
+           </field>
+       </record>
+</odoo>

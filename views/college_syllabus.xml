@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Tree view for Syllabus of semester-->
+    <record id="college_syllabus_view_tree" model="ir.ui.view">
+        <field name="name">Syllabus List</field>
+        <field name="model">college.syllabus</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="subject"/>
+                <field name="pass_mark"/>
+                <field name="max_mark"/>
+            </tree>
+        </field>
+    </record>
+    <!--Form view for Syllabus of semester-->
+    <record id="college_syllabus_view_form" model="ir.ui.view">
+        <field name="name">Syllabus Form</field>
+        <field name="model">college.syllabus</field>
+        <field name="arch" type="xml">
+            <form name="Form">
+                <sheet>
+                    <group>
+                        <field name="subject"/>
+                        <field name="max_mark"/>
+                        <field name="pass_mark"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
