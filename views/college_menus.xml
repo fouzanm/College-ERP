@@ -21,7 +21,7 @@
             id="college_configuration_menu"
             name="Configuration"
             parent="college_root_menu"
-            sequence="5"/>
+            sequence="6"/>
     <!--Menu for Course-->
     <menuitem
             id="college_course_menu"
@@ -63,4 +63,15 @@
             parent="college_exam_main_menu"
             action="college_promotion_view_action"
             sequence="2"/>
+    <menuitem
+            id="college_report_menu"
+            name="Reports"
+            parent="college_root_menu"
+            sequence="5"/>
+    <menuitem
+            id="college_marksheet_wizard_menu"
+            name="Mark Sheet"
+            parent="college_report_menu"
+            action="college_marksheet_wizard_view_action"
+            sequence="1"/>
 </odoo>

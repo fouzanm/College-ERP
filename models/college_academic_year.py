@@ -8,7 +8,8 @@ class CollegeAcademicYear(models.Model):
     _name = "college.academic.year"
     _description = "Academic Year"
 
-    name = fields.Char(compute="_compute_name", string="Academic Year")
+    name = fields.Char(compute="_compute_name", string="Academic Year",
+                       store=True)
     academic_start = fields.Integer(string="Academic Start")
     academic_end = fields.Integer(string="Academic End")
 

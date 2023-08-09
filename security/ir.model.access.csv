@@ -10,3 +10,4 @@ access_college_exam_all,access.college.exam,model_college_exam,base.group_user,1
 access_college_papers_all,access.college.papers,model_college_papers,base.group_user,1,1,1,1
 access_college_marksheet_all,access.college.marksheet,model_college_marksheet,base.group_user,1,1,1,1
 access_college_promotion_all,access.college.promotion,model_college_promotion,base.group_user,1,1,1,1
+access_college_marksheet_wizard_all,access.college.marksheet.wizard,model_college_marksheet_wizard,base.group_user,1,1,1,1

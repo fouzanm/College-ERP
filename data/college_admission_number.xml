@@ -9,14 +9,4 @@
            <field name="number_next">1100</field>
        </record>
     </data>
-<!--    <data noupdate="1">-->
-<!--        <record id="product_new_1" model="product.product">-->
-<!--            <field name="name">Product1</field>-->
-<!--        </record>-->
-<!--    </data>-->
-<!--    <data noupdate="0">-->
-<!--        <record id="product_new_1" model="product.product">-->
-<!--            <field name="name">Product1</field>-->
-<!--        </record>-->
-<!--    </data>-->
 </odoo>

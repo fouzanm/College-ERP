@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Form view for Marksheet wizard-->
+    <record id="college_marksheet_wizard_view_form" model="ir.ui.view">
+        <field name="name">Marksheet Wizard Form</field>
+        <field name="model">college.marksheet.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <sheet>
+                    <group>
+                        <field name="report_type" widget="radio"/>
+                        <field name="student_id" attrs="{'invisible':[('report_type', '=', 'class_wise')],'required': [('report_type', '=', 'student_wise')]}"/>
+                        <field name="class_id" attrs="{'invisible':[('report_type', '=', 'student_wise')],'required': [('report_type', '=', 'class_wise')]}"/>
+                        <field name="semester_id"/>
+                        <field name="exam_type"/>
+                    </group>
+                    <footer>
+                        <button name="print_pdf" string="Print" type="object" class="oe_highlight"/>
+                        <button string="Discard" special="cancel" type="object"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Action view for semester-->
+    <record id="college_marksheet_wizard_view_action" model="ir.actions.act_window">
+        <field name="name">Marksheet</field>
+        <field name="res_model">college.marksheet.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

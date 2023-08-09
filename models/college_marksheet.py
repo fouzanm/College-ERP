@@ -17,7 +17,6 @@ class CollegeMarkSheet(models.Model):
                                 related="exam_id.course_id")
     semester_id = fields.Many2one('college.semester', string="Semester",
                                   related="exam_id.semester_id")
-    obtained_mark = fields.Float(copy=True)
     result = fields.Boolean(string="Pass/Fail", compute="_compute_result",
                             readonly=True, store=True)
     total_mark = fields.Float(compute='_compute_total_mark', store=True)
@@ -25,6 +24,7 @@ class CollegeMarkSheet(models.Model):
     papers_ids = fields.One2many("college.papers", "marksheet_id")
     total_max = fields.Integer(compute='_compute_total_max')
     promoted_students_id = fields.Many2one("college.promotion")
+
 
     @api.depends('papers_ids')
     def _compute_total_mark(self):

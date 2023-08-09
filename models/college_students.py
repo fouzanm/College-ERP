@@ -8,7 +8,7 @@ class CollegeStudents(models.Model):
     _description = "College Students"
     _inherit = 'mail.thread', 'mail.activity.mixin'
 
-    name = fields.Char(compute="_compute_name")
+    name = fields.Char(compute="_compute_name", store=True)
     ad_no = fields.Char(string="Admission No:", readonly=True)
     ad_date = fields.Date(string="Admission Date")
     f_name = fields.Char(default="", required=True, string="First Name")
