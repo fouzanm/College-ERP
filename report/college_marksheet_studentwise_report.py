@@ -8,7 +8,7 @@ class CollegeMarksheetStudentwiseReport(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         # print(docids)
         docs = self.env['college.marksheet.wizard'].browse(docids)
-        print(docids)
+        # print(docids)
         res = {
             'doc_ids': docids,
             'doc_model': 'college.marksheet.wizard',
@@ -17,4 +17,3 @@ class CollegeMarksheetStudentwiseReport(models.AbstractModel):
         }
         print(res)
         return res
-    

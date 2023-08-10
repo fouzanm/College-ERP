@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import MissingError
 
 
 class CollegeMarksheetWizard(models.TransientModel):
@@ -35,20 +36,26 @@ class CollegeMarksheetWizard(models.TransientModel):
             inner join college_class as cc on cc.id = ce.class_id
             inner join college_semester as csm on csm.id = cc.semester_id
             inner join college_students as cst on cst.id = cm.students_id
-            inner join college_course as cco on cco.id = ce.class_id
+            inner join college_course as cco on cco.id = csm.course_id
             inner join college_academic_year as ay on ay.id= cc.academic_year_id
             """
             query += f"""where ce.type = '{self.exam_type}' and cm.students_id =
              '{self.student_id.id}'"""
             self.env.cr.execute(query)
             report = self.env.cr.dictfetchall()
-            # print(report)
+            print(report)
+            if not report:
+                print("no")
+                raise MissingError("Mark Sheet does not exist or this Student "
+                                   "didn't take the exam.")
             data = {'report': report}
-            return self.env.ref(
-                'college.college_marksheet_studentwise_report_view_action').report_action(None, data=data)
+            print(data)
+            return (self.env.ref(
+                'college.college_marksheet_studentwise_report_view_action').
+                    report_action(None, data=data))
 
         else:
             print('class')
-            return self.env.ref(
-                'college.college_marksheet_classwise_report_view_action'). \
-                report_action(self)
+            return (self.env.ref(
+                'college.college_marksheet_classwise_report_view_action').
+                    report_action(self))
