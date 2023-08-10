@@ -8,7 +8,8 @@ class CollegeClass(models.Model):
     _name = "college.class"
     _description = "College Class"
 
-    name = fields.Char(compute="_compute_name", copy=False, default="Name")
+    name = fields.Char(compute="_compute_name", copy=False, default="Name",
+                       store=True)
     semester_id = fields.Many2one("college.semester", "Semester", required=True)
     course_id = fields.Many2one("college.course",
                                 related="semester_id.course_id",

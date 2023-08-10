@@ -22,18 +22,21 @@ class CollegeMarkSheet(models.Model):
     total_mark = fields.Float(compute='_compute_total_mark', store=True)
     rank = fields.Integer(compute='_compute_rank', default=0)
     papers_ids = fields.One2many("college.papers", "marksheet_id")
-    total_max = fields.Integer(compute='_compute_total_max')
+    total_max = fields.Integer(string="Max Total", store=True)
     promoted_students_id = fields.Many2one("college.promotion")
 
 
     @api.depends('papers_ids')
     def _compute_total_mark(self):
-        """this function to calculate total obtained mark."""
+        """this function to calculate total obtained mark and total mark."""
         for record in self:
             total_mark = 0
+            max = 0
             for rec in record.papers_ids:
                 total_mark += rec.obtained_mark
+                max += rec.max_mark
             record.total_mark = total_mark
+            record.total_max = max
 
     @api.depends('total_mark')
     def _compute_rank(self):

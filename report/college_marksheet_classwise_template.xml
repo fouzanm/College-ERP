@@ -2,15 +2,71 @@
 <odoo>
     <template id="report_marksheet_classwise">
         <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <div class="text-center">
-                            <h1>Class : Mark List</h1>
-                            <h3>Course - Academic Year</h3>
-                        </div>
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="text-center">
+                        <h3><span t-esc="report[0]['class']"/> : Mark List</h3>
+                        <h4><span t-esc="report[0]['course']"/> - <span t-esc="report[0]['academic_year']"/></h4>
                     </div>
-                </t>
+                    <div>
+                        <h6 style="font-weight: bold">Exam :<span t-esc="report[0]['type']"/></h6>
+                        <h6 style="font-weight: bold">Total :<span t-esc="report[0]['total']"/></h6>
+                        <h6 style="font-weight: bold">Pass : <span t-esc="count[0]['pass']"/></h6>
+                        <h6 style="font-weight: bold">Fail : <span t-esc="count[0]['fail']"/></h6>
+                        <h6 style="font-weight: bold">Total-Pass Ratio: <span t-esc="ratio[0]['tp_ratio']"/></h6>
+                        <h6 style="font-weight: bold">Pass-Fail Ratio: <span t-esc="ratio[0]['pl_ratio']"/></h6>
+                    </div>
+                    <br/>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th name="th_student">
+                                    <span>Student Name</span>
+                                </th>
+                                <t t-foreach="report[0]['paper']" t-as="line">
+                                    <th name="th_paper">
+                                        <t t-esc="line['subject']"/>
+                                    </th>
+                                </t>
+                                <th name="th_obtained_mark">
+                                    <span>Obtained Mark</span>
+                                </th>
+                                <th name="th_total_mark">
+                                    <span>Total Mark</span>
+                                </th>
+                                <th name="th_result">
+                                    <span>Pass / Fail</span>
+                                </th>
+                            </tr>
+                            <t t-foreach="report" t-as="line">
+                                <tr>
+                                    <td class="text-center">
+                                        <t t-esc="line['name']"/>
+                                    </td>
+                                    <t t-foreach="line['paper']" t-as="mark">
+                                        <td class="text-center">
+                                            <t t-esc="mark['obtained_mark']"/>
+                                        </td>
+                                    </t>
+                                    <td class="text-center">
+                                        <t t-esc="line['total_mark']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="line['total_max']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="line['result'] == True">
+                                            <h6>Pass</h6>
+                                        </t>
+                                        <t t-else="">
+                                            <h6>Fail</h6>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </thead>
+                    </table>
+                </div>
             </t>
         </t>
     </template>

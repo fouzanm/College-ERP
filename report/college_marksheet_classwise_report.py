@@ -3,8 +3,8 @@ from odoo import api, models
 
 
 class CollegeMarksheetStudentwiseReport(models.AbstractModel):
-    _name = 'report.college.report_marksheet_studentwise'
-    _description = "College Marksheet Classwise report Model"
+    _name = 'report.college.report_marksheet_classwise'
+    _description = "College Marksheet Studentwise report Model"
 
     @api.model
     def _get_report_values(self, docids, data=None):

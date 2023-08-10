@@ -27,7 +27,8 @@ class CollegeExam(models.Model):
                                         ('completed', 'Completed')],
                              default='draft')
     papers_ids = fields.One2many("college.papers", "exam_id")
-    students_count = fields.Integer(compute='_compute_students_count')
+    students_count = fields.Integer(compute='_compute_students_count',
+                                    store=True)
     marksheet_count = fields.Integer(compute='_compute_marksheet_count')
 
     @api.constrains('type', 'class_id')
@@ -79,7 +80,7 @@ class CollegeExam(models.Model):
         """used to calculate count of students who attended the exam."""
         for record in self:
             record.students_count = self.env['college.students'].search_count(
-                [('class_id', '=', self.class_id.id)])
+                [('class_id', '=', record.class_id.id)])
 
     @api.onchange('end_date')
     def _compute_marksheet_count(self):
