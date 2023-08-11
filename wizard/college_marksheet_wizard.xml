@@ -15,7 +15,8 @@
                         <field name="exam_type"/>
                     </group>
                     <footer>
-                        <button name="print_pdf" string="Print" type="object" class="oe_highlight"/>
+                        <button name="print_pdf" string="Print PDF" type="object" class="oe_highlight"/>
+                        <button name="print_xlsx" string="Print XLSX" type="object" class="oe_highlight"/>
                         <button string="Discard" special="cancel" type="object"/>
                     </footer>
                 </sheet>

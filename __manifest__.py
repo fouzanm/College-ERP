@@ -28,5 +28,10 @@
         'report/college_marksheet_classwise_template.xml',
         'views/college_menus.xml',
     ],
+    'assets': {
+            'web.assets_backend': [
+                'college/static/src/js/action_manager.js',
+            ],
+        },
     'application': True
 }
