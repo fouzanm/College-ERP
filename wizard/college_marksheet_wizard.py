@@ -40,7 +40,7 @@ class CollegeMarksheetWizard(models.TransientModel):
     def print_pdf(self):
         """action for printing pdf"""
         if self.report_type == 'student_wise':
-            query = """select cst.name,cco.name as course,
+            query = f"""select cst.name,cco.name as course,
             ay.name as academic_year,ce.type,cm.result,cs.pass_mark,
             cs.subject,cp.obtained_mark,cp.result as pass_fail
             from college_marksheet as cm
@@ -52,9 +52,9 @@ class CollegeMarksheetWizard(models.TransientModel):
             inner join college_students as cst on cst.id = cm.students_id
             inner join college_course as cco on cco.id = csm.course_id
             inner join college_academic_year as ay on ay.id= cc.academic_year_id
+            where ce.type = '{self.exam_type}' and cm.students_id =
+             '{self.student_id.id}'
             """
-            query += f"""where ce.type = '{self.exam_type}' and cm.students_id =
-             '{self.student_id.id}'"""
             self.env.cr.execute(query)
             report = self.env.cr.dictfetchall()
             if not report:
@@ -66,7 +66,7 @@ class CollegeMarksheetWizard(models.TransientModel):
                     report_action(None, data=data))
 
         else:
-            students = """select cm.students_id,cm.result,cm.total_mark,
+            students = f"""select cm.students_id,cm.result,cm.total_mark,
             cm.total_max,cs.name,cc.name as class,cco.name as course,
             ay.name as academic_year,ce.type,ce.students_count as total
             from college_marksheet as cm
@@ -76,22 +76,22 @@ class CollegeMarksheetWizard(models.TransientModel):
             inner join college_semester as csm on cc.semester_id = csm.id
             inner join college_course as cco on csm.course_id = cco.id
             inner join college_academic_year as ay on cc.academic_year_id= ay.id
+            where ce.type = '{self.exam_type}' and ce.class_id =
+                                     '{self.class_id.id}'
             """
-            students += f"""where ce.type = '{self.exam_type}' and ce.class_id =
-                                     '{self.class_id.id}'"""
             self.env.cr.execute(students)
             report = self.env.cr.dictfetchall()
             for record in report:
-                paper = """select cm.students_id,cp.result,cp.obtained_mark,
+                paper = f"""select cm.students_id,cp.result,cp.obtained_mark,
                 cs.subject,cs.pass_mark,ce.type
                 from college_marksheet as cm
                 inner join college_exam as ce on cm.exam_id = ce.id
                 inner join college_papers as cp on cm.id = cp.marksheet_id
                 inner join college_syllabus as cs on cp.subject_id = cs.id
-                """
-                paper += f"""where ce.type = '{self.exam_type}' and
+                where ce.type = '{self.exam_type}' and
                  cm.students_id = '{record['students_id']}' 
-                 order by cm.students_id,cp.subject_id"""
+                 order by cm.students_id,cp.subject_id
+                """
                 self.env.cr.execute(paper)
                 rec = self.env.cr.dictfetchall()
                 record['paper'] = rec
@@ -128,7 +128,7 @@ class CollegeMarksheetWizard(models.TransientModel):
 
     def print_xlsx(self):
         if self.report_type == 'student_wise':
-            query = """
+            query = f"""
                     select cst.name,cco.name as course,
                     ay.name as academic_year,ce.type,cm.result,cs.pass_mark,
                     cs.subject,cp.obtained_mark,cp.result as pass_fail
@@ -142,9 +142,9 @@ class CollegeMarksheetWizard(models.TransientModel):
                     inner join college_course as cco on cco.id = csm.course_id
                     inner join college_academic_year as ay 
                     on ay.id= cc.academic_year_id
+                    where ce.type = '{self.exam_type}' and cm.students_id =
+                         '{self.student_id.id}'
                     """
-            query += f"""where ce.type = '{self.exam_type}' and cm.students_id =
-                         '{self.student_id.id}'"""
             self.env.cr.execute(query)
             report = self.env.cr.dictfetchall()
             data = {'report': report,
@@ -163,7 +163,7 @@ class CollegeMarksheetWizard(models.TransientModel):
                 'report_type': 'xlsx',
             }
         else:
-            students = """select cm.students_id,cm.result,cm.total_mark,
+            students = f"""select cm.students_id,cm.result,cm.total_mark,
                         cm.total_max,cs.name,cc.name as class,cco.name as course
                         ,ay.name as academic_year,ce.type,ce.students_count as 
                         total from college_marksheet as cm
@@ -177,13 +177,13 @@ class CollegeMarksheetWizard(models.TransientModel):
                         csm.course_id = cco.id
                         inner join college_academic_year as ay on 
                         cc.academic_year_id = ay.id
+                        where ce.type = '{self.exam_type}' and ce.class_id =
+                                                 '{self.class_id.id}'
                         """
-            students += f"""where ce.type = '{self.exam_type}' and ce.class_id =
-                                                 '{self.class_id.id}'"""
             self.env.cr.execute(students)
             report = self.env.cr.dictfetchall()
             for record in report:
-                paper = """select cm.students_id,cp.result,cp.obtained_mark,
+                paper = f"""select cm.students_id,cp.result,cp.obtained_mark,
                             cs.subject,cs.pass_mark,ce.type
                             from college_marksheet as cm
                             inner join college_exam as ce on cm.exam_id = ce.id
@@ -191,10 +191,10 @@ class CollegeMarksheetWizard(models.TransientModel):
                              cm.id = cp.marksheet_id
                             inner join college_syllabus as cs on
                              cp.subject_id = cs.id
+                            where ce.type = '{self.exam_type}' and
+                            cm.students_id = '{record['students_id']}' 
+                            order by cm.students_id,cp.subject_id
                             """
-                paper += f"""where ce.type = '{self.exam_type}' and
-                             cm.students_id = '{record['students_id']}' 
-                             order by cm.students_id,cp.subject_id"""
                 self.env.cr.execute(paper)
                 rec = self.env.cr.dictfetchall()
                 record['paper'] = rec
