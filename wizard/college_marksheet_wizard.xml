@@ -23,7 +23,7 @@
             </form>
         </field>
     </record>
-    <!--Action view for semester-->
+    <!--Action view for Marksheet Wizard-->
     <record id="college_marksheet_wizard_view_action" model="ir.actions.act_window">
         <field name="name">Marksheet</field>
         <field name="res_model">college.marksheet.wizard</field>

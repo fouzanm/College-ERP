@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from odoo.exceptions import MissingError
-import string
 import json
 import io
 from odoo.tools import date_utils
@@ -57,6 +56,8 @@ class CollegeMarksheetWizard(models.TransientModel):
             """
             self.env.cr.execute(query)
             report = self.env.cr.dictfetchall()
+            for record in report:
+                record['type'] = record['type'].replace("_", " ").title()
             if not report:
                 raise MissingError("Mark Sheet does not exist or this Student "
                                    "didn't take the exam.")
@@ -119,6 +120,8 @@ class CollegeMarksheetWizard(models.TransientModel):
             pl_ratio = f"{int(pl_pass)}:{int(pl_fail)}"
             ratio = [{'pl_ratio': pl_ratio, 'tp_ratio': tp_ratio}]
             count = [{'total': total, 'pass': pass_count, 'fail': fail_count}]
+            for record in report:
+                record['type'] = record['type'].replace("_", " ").title()
             data = {'report': report,
                     'count': count,
                     'ratio': ratio}
@@ -325,52 +328,34 @@ class CollegeMarksheetWizard(models.TransientModel):
             sheet.merge_range('A14:B14', 'Pass-Fail Ratio:', cell_format)
             sheet.merge_range('C14:D14', pl_ratio, txt)
             sheet.merge_range('A16:B16', 'Name', cell_format)
-            char = 2
+            col = 2
+            row = 15
             for rec in data['report'][0]['paper']:
-                col_1 = string.ascii_uppercase[char]
-                col_2 = string.ascii_uppercase[char + 1]
-                sheet.merge_range(f"{col_1}16:{col_2}16", rec['subject'],
+                sheet.merge_range(row, col, row, col+1, rec['subject'],
                                   cell_format)
-                char += 2
-            col_1 = string.ascii_uppercase[char]
-            col_2 = string.ascii_uppercase[char + 1]
-            col_3 = string.ascii_uppercase[char + 2]
-            col_4 = string.ascii_uppercase[char + 3]
-            col_5 = string.ascii_uppercase[char + 4]
-            col_6 = string.ascii_uppercase[char + 5]
-            sheet.merge_range(f'{col_1}16:{col_2}16', 'Obtained Mark',
+                col += 2
+            sheet.merge_range(row, col, row, col+1, 'Obtained Mark',
                               cell_format)
-            sheet.merge_range(f'{col_3}16:{col_4}16', 'Total Mark',
+            sheet.merge_range(row, col+2, row, col+3, 'Total Mark', cell_format)
+            sheet.merge_range(row, col+4, row, col+5, 'Pass / Failed',
                               cell_format)
-            sheet.merge_range(f'{col_5}16:{col_6}16', 'Pass / Failed',
-                              cell_format)
-            line = 17
+            row = 16
             for record in data['report']:
-                sheet.merge_range(f'A{line}:B{line}', record['name'], txt)
-                char = 2
+                sheet.merge_range(f'A{row+1}:B{row+1}', record['name'], txt)
+                col = 2
                 for rec in record['paper']:
-                    col_1 = string.ascii_uppercase[char]
-                    col_2 = string.ascii_uppercase[char + 1]
-                    sheet.merge_range(f"{col_1}{line}:{col_2}{line}",
+                    sheet.merge_range(row, col, row, col+1,
                                       rec['obtained_mark'], txt)
-                    char += 2
-                col_1 = string.ascii_uppercase[char]
-                col_2 = string.ascii_uppercase[char + 1]
-                col_3 = string.ascii_uppercase[char + 2]
-                col_4 = string.ascii_uppercase[char + 3]
-                col_5 = string.ascii_uppercase[char + 4]
-                col_6 = string.ascii_uppercase[char + 5]
-                sheet.merge_range(f'{col_1}{line}:{col_2}{line}',
+                    col += 2
+                sheet.merge_range(row, col, row, col+1,
                                   record['total_mark'], txt)
-                sheet.merge_range(f'{col_3}{line}:{col_4}{line}',
+                sheet.merge_range(row, col+2, row, col+3,
                                   record['total_max'], txt)
                 if record['result'] is True:
-                    sheet.merge_range(f'{col_5}{line}:{col_6}{line}', 'Pass',
-                                      txt)
+                    sheet.merge_range(row, col+4, row, col+5, 'Pass', txt)
                 else:
-                    sheet.merge_range(f'{col_5}{line}:{col_6}{line}', 'Fail',
-                                      txt)
-                line += 1
+                    sheet.merge_range(row, col+6, row, col+7, 'Fail', txt)
+                row += 1
             workbook.close()
             output.seek(0)
             response.stream.write(output.read())
