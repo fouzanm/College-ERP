@@ -13,6 +13,7 @@ except ImportError:
 class CollegeMarksheetWizard(models.TransientModel):
     """to add fields in Marksheet wizard."""
     _name = 'college.marksheet.wizard'
+    _description = 'College Marksheet Wizard'
 
     report_type = fields.Selection(selection=[('student_wise', 'Student Wise'),
                                               ('class_wise', 'Class Wise')],

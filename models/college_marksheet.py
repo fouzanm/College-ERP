@@ -31,12 +31,12 @@ class CollegeMarkSheet(models.Model):
         """this function to calculate total obtained mark and total mark."""
         for record in self:
             total_mark = 0
-            max = 0
+            max_mark = 0
             for rec in record.papers_ids:
                 total_mark += rec.obtained_mark
-                max += rec.max_mark
+                max_mark += rec.max_mark
             record.total_mark = total_mark
-            record.total_max = max
+            record.total_max = max_mark
 
     @api.depends('total_mark')
     def _compute_rank(self):

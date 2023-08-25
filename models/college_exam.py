@@ -15,7 +15,8 @@ class CollegeExam(models.Model):
                                        ('semester_exam', 'Semester Exam'),
                                        ('unit_test', 'Unit Test')],
                             required=True)
-    class_id = fields.Many2one('college.class', 'Class', required=True)
+    class_id = fields.Many2one('college.class', 'Class',
+                               required=True)
     course_id = fields.Many2one('college.course', 'Course',
                                 related="class_id.course_id")
     semester_id = fields.Many2one('college.semester', 'Semester',
@@ -62,9 +63,9 @@ class CollegeExam(models.Model):
             if self.start_date > self.end_date:
                 raise ValidationError("Invalid Exam Date Entry")
 
-    @api.constrains('end_date')
     def _end_date_status(self):
-        """this for updating state to completed if end date is over."""
+        """this for updating state to completed and generate marksheet if
+         end date is over."""
         today = datetime.date.today()
         if self.start_date and self.end_date:
             if self.end_date < today:
@@ -74,6 +75,13 @@ class CollegeExam(models.Model):
     def action_exam_confirm(self):
         """action for confirm button"""
         self.state = 'confirm'
+        self._end_date_status()
+
+    def action_exam_scheduler(self):
+        """action to complete exam and generate marksheet on scheduled date"""
+        exam = self.search([('state', '=', 'confirm')])
+        for record in exam:
+            record._end_date_status()
 
     @api.onchange('class_id')
     def _compute_students_count(self):
@@ -84,12 +92,13 @@ class CollegeExam(models.Model):
 
     @api.onchange('end_date')
     def _compute_marksheet_count(self):
+        """to compute generated marksheet count"""
         for record in self:
             record.marksheet_count = self.env['college.marksheet'].search_count(
                 [('exam_id', '=', self.id)])
 
     def get_students(self):
-        """this function for get students for exam"""
+        """action to view students"""
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
@@ -101,7 +110,7 @@ class CollegeExam(models.Model):
         }
 
     def generate_marksheet(self):
-        """this action is to generate mark sheet"""
+        """action to generate mark sheet"""
         self.state = 'completed'
         self.ensure_one()
         for record in self.class_id.students_ids:
@@ -127,7 +136,7 @@ class CollegeExam(models.Model):
         }
 
     def get_marksheet(self):
-        """action for smart button of generated mark sheet"""
+        """action for smart button of generated mark sheet."""
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
@@ -139,12 +148,11 @@ class CollegeExam(models.Model):
 
     @api.constrains('type', 'class_id')
     def check_exam_existence(self):
-        """this function to block creating exam, if that exam
-        already created."""
-        for record in self:
-            existing_exam = record.search([
-                ('type', '=', record.type),
-                ('class_id', '=', record.class_id.id)
-            ])
+        """this function to block creating exam, if that exam already created.
+        """
+        existing_exam = self.search([
+            ('type', '=', self.type),
+            ('class_id', '=', self.class_id.id)
+        ])
         if len(existing_exam) > 1:
             raise ValidationError("Exam already exist")

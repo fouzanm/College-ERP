@@ -45,9 +45,8 @@ class CollegePromotion(models.Model):
     def check_promotion_existence(self):
         """this function to block creating promotion class, if the promotion
         class already created."""
-        for record in self:
-            existing_class = record.search([
-                ('exam_id', '=', record.exam_id.id)
-            ])
+        existing_class = self.search([
+            ('exam_id', '=', self.exam_id.id)
+        ])
         if len(existing_class) > 1:
             raise ValidationError("Promotion Class already exist")

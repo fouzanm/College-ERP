@@ -10,6 +10,7 @@
         'security/ir.model.access.csv',
         'data/college_admission_email.xml',
         'data/college_admission_number.xml',
+        'data/college_exam_cron_scheduler.xml',
         'views/college_students.xml',
         'views/college_course.xml',
         'views/college_semester.xml',
@@ -33,5 +34,6 @@
                 'college/static/src/js/action_manager.js',
             ],
         },
-    'application': True
+    'application': True,
+    'license': 'LGPL-3'
 }

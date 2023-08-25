@@ -15,18 +15,16 @@ class CollegeAcademicYear(models.Model):
 
     @api.depends('academic_start', 'academic_end')
     def _compute_name(self):
-        """
-        this method for concatenate academic start year
-        and end year to find academic year
-        """
+        """this method for concatenate academic start year and end year to find
+        academic year"""
         for record in self:
             record.name = "{0}-{1}".format(str(record.academic_start),
                                            str(record.academic_end)[-2:])
 
     @api.constrains('academic_start', 'academic_end')
     def _validate_academic_year(self):
-        """this will validate academic start year
-        and end year for getting valid academic year."""
+        """this will validate academic start year and end year for getting
+         valid academic year."""
         if self.academic_end > self.academic_start:
             if len(str(self.academic_start)) != 4 \
                     and len(str(self.academic_end)) != 4:

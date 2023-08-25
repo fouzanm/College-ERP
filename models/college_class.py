@@ -10,7 +10,8 @@ class CollegeClass(models.Model):
 
     name = fields.Char(compute="_compute_name", copy=False, default="Name",
                        store=True)
-    semester_id = fields.Many2one("college.semester", "Semester", required=True)
+    semester_id = fields.Many2one("college.semester",
+                                  "Semester", required=True)
     course_id = fields.Many2one("college.course",
                                 related="semester_id.course_id",
                                 string="Course")
@@ -27,7 +28,7 @@ class CollegeClass(models.Model):
                           f"{str(record.academic_year_id.name)}"
 
     @api.constrains('semester_id', 'academic_year_id')
-    def check_class_existance(self):
+    def check_class_existence(self):
         """this function to block creating class, if that class
         already created."""
         for record in self:

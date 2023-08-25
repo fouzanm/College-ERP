@@ -20,7 +20,7 @@ class CollegePapers(models.Model):
     @api.constrains('obtained_mark')
     def check_pass_or_fail(self):
         """for toggle button to show the result is passed or failed"""
-        self.result = False if self.obtained_mark < self.pass_mark else True
+        self.result = True if self.obtained_mark >= self.pass_mark else False
 
     @api.constrains('obtained_mark')
     def mark_validation(self):

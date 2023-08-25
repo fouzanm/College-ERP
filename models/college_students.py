@@ -33,16 +33,7 @@ class CollegeStudents(models.Model):
         """this function is used concatenate first name
         and last name to find full name."""
         for record in self:
-            record.name = str(record.f_name) + " " + str(record.l_name)
-
-    @api.onchange('same_address')
-    def _onchange_address(self):
-        """this method for copying communication address for permanent address,
-        if the portal user checked 'same as communication address' box"""
-        if self.same_address:
-            self.permanent_address = self.communication_address
-        else:
-            self.permanent_address = ""
+            record.name = f"{str(record.f_name)} {str(record.l_name)}"
 
     @api.model
     def create(self, vals):
