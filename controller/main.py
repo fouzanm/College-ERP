@@ -34,3 +34,14 @@ class XLSXReportController(http.Controller):
                 'data': se
             }
             return request.make_response(html_escape(json.dumps(error)))
+
+
+class OnlineAdmission(http.Controller):
+    @http.route(['/admission'], type='http', auth='user', website=True)
+    def online_admission(self):
+        admission_data = request.env["college.admission"].sudo().search([])
+        print(admission_data)
+        values = {
+            'records': admission_data
+        }
+        return request.render('college.online_admission_form', values)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="online_admission_form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty pt">
+                <section class="s_website_form pt40 pb40" data-vcss="001" data-snippet="s_website_form">
+                    <div class="container">
+                        <form action="/admission/submit/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+                                <div class="form-group col-12 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                       <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
+                                          <span class="s_website_form_label_content">First Name</span>
+                                          <span class="s_website_form_mark"> *</span>
+                                       </label>
+                                       <div class="col-sm">
+                                          <input id="name" type="text" class="form-control s_website_form_input" name="f_name" required="1"/>
+                                       </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                       <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
+                                          <span class="s_website_form_label_content">Last Name</span>
+                                          <span class="s_website_form_mark"> *</span>
+                                       </label>
+                                       <div class="col-sm">
+                                           <input id="name" type="text" class="form-control s_website_form_input" name="l_name" required="1"/>
+                                       </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                       <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
+                                           <span class="s_website_form_label_content">Phone</span>
+                                           <span class="s_website_form_mark"> *</span>
+                                       </label>
+                                       <div class="col-sm">
+                                       <input id="phone" type="text" class="form-control s_website_form_input" name="phone" required="1"/>
+                                       </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
+                                           <span class="s_website_form_label_content">Email</span>
+                                           <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="email" type="email" class="form-control s_website_form_input" name="email" required="1"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
+                                           <span class="s_website_form_label_content">Admission date</span>
+                                           <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="appointment_date" type="date" class="form-control s_website_form_input" name="ad_date" required="1"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                                   <div style="width: 200px;" class="s_website_form_label"/>
+                                   <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </t>
+
+    </template>
+</odoo>
