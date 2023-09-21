@@ -8,7 +8,7 @@ from odoo.tools import html_escape
 class XLSXReportController(http.Controller):
     @http.route('/xlsx_reports', type='http', auth='user',
                 methods=['POST'], csrf=False)
-    def get_report_xlsx(self, model, options, output_format, report_name, **kw):
+    def get_report_xlsx(self, model, options, output_format, report_name):
         uid = request.session.uid
         report_obj = request.env[model].with_user(uid)
         options = json.loads(options)
@@ -34,14 +34,3 @@ class XLSXReportController(http.Controller):
                 'data': se
             }
             return request.make_response(html_escape(json.dumps(error)))
-
-
-class OnlineAdmission(http.Controller):
-    @http.route(['/admission'], type='http', auth='user', website=True)
-    def online_admission(self):
-        admission_data = request.env["college.admission"].sudo().search([])
-        print(admission_data)
-        values = {
-            'records': admission_data
-        }
-        return request.render('college.online_admission_form', values)

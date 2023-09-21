@@ -74,10 +74,9 @@
                                     <field name="prev_qualification"/>
                                     <field name="institute"/>
                                 </group>
+                                <field name="file_name" invisible="1"/>
                                 <group>
-                                    <field name="tc_ids"
-                                           widget="many2many_binary"
-                                           string="Transfer Certificate"/>
+                                    <field name="tc" filename="file_name"/>
                                 </group>
                             </group>
                         </page>

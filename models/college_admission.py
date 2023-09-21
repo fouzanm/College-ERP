@@ -31,14 +31,15 @@ class CollegeAdmission(models.Model):
                                   required=True)
     date_application = fields.Date(string="Date Of Application",
                                    default=datetime.date.today())
-    academic_year_id = fields.Many2one("college.academic.year")
+    academic_year_id = fields.Many2one("college.academic.year",
+                                       required=True)
     prev_qualification = fields.Selection(string="Previous Qualification",
                                           selection=[('hs', 'Higher Secondary'),
                                                      ('ug', 'UG'),
                                                      ('pg', 'PG')])
     institute = fields.Char(string='Education Institution')
-    tc_ids = fields.Many2many(comodel_name='ir.attachment', copy=False,
-                              string='Add Attachment')
+    tc = fields.Binary(string="Transfer Certificate")
+    file_name = fields.Char()
     state = fields.Selection(default="draft",
                              selection=[('draft', 'Draft'),
                                         ('application', 'Application'),
@@ -59,15 +60,15 @@ class CollegeAdmission(models.Model):
         if self.state == 'application':
             self.state = 'done'
             CollegeAdmission.create_students_and_class(self)
-        if self.state == 'draft':
-            if self.tc_ids:
-                self.state = 'application'
-            else:
-                raise ValidationError("Add Attachment")
-        if self.state == 'done':
             mail_template = self.env.ref(
                 'college.college_admission_email_template')
             mail_template.send_mail(self.id, force_send=True)
+        if self.state == 'draft':
+            if self.tc:
+                self.state = 'application'
+            else:
+                raise ValidationError("Add Attachment")
+
 
     @api.model
     def create(self, vals):
@@ -89,7 +90,7 @@ class CollegeAdmission(models.Model):
         """
         this function for push datas from admission record to students record.
         """
-        students_data = {
+        students = self.env['college.students'].create({
             'name': self.name,
             'ad_no': self.ad_no,
             'ad_date': self.ad_date,
@@ -105,20 +106,18 @@ class CollegeAdmission(models.Model):
             'course_id': self.course_id.id,
             'academic_year_id': self.academic_year_id.id,
             'semester_id': self.semester_id.id
-        }
-        students = self.env['college.students'].create(students_data)
-        class_data = {
-            'semester_id': self.semester_id.id,
-            'academic_year_id': self.academic_year_id.id,
-            'course_id': self.course_id.id
-        }
+        })
         if self.semester_id and self.academic_year_id:
             existing_class = self.env['college.class'].search([
                 ('semester_id', '=', self.semester_id.id),
                 ('academic_year_id', '=', self.academic_year_id.id)
             ], limit=1)
             if not existing_class:
-                self.env['college.class'].create(class_data)
+                self.env['college.class'].create({
+                    'semester_id': self.semester_id.id,
+                    'academic_year_id': self.academic_year_id.id,
+                    'course_id': self.course_id.id
+                })
                 student_id = self.env['college.students'].search(
                     [], order="id desc")[0]
                 class_id = self.env['college.class'].search(
