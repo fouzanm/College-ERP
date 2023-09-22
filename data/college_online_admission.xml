@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
     <record id="menu_online_admission" model="website.menu">
         <field name="name">Admission</field>
         <field name="url">/admission</field>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">55</field>
     </record>
-    </data>
 </odoo>

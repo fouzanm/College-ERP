@@ -13,6 +13,7 @@
         'data/college_admission_number.xml',
         'data/college_exam_cron_scheduler.xml',
         'data/college_online_admission.xml',
+        'data/college_admitted_list.xml',
         'views/college_students.xml',
         'views/college_course.xml',
         'views/college_semester.xml',
@@ -25,6 +26,7 @@
         'views/college_promotion.xml',
         'views/college_marksheet.xml',
         'views/college_admission_template.xml',
+        'views/college_admitted_list_template.xml',
         'wizard/college_marksheet_wizard.xml',
         'report/college_marksheet_studentwise_report.xml',
         'report/college_marksheet_studentwise_template.xml',
@@ -36,6 +38,9 @@
             'web.assets_backend': [
                 'college/static/src/js/action_manager.js',
             ],
+            'web.assets_frontend': [
+                'college/static/src/js/website_admission.js'
+            ]
         },
     'application': True,
     'license': 'LGPL-3'

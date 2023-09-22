@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="admitted_list" name="Admitted List">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty pt">
+                <section class="s_website_form pt40 pb40" data-vcss="001" data-snippet="s_website_form">
+                    <div class="container">
+                        <h1 class="text-center">Admitted List</h1>
+                        <br/>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SI No.</th>
+                                    <th>Name</th>
+                                    <th>Admission Number</th>
+                                    <th>Course</th>
+                                    <th>State</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="i" t-value="1"/>
+                                <t t-foreach="students" t-as="record">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+                                        <td><t t-esc="record.name"/></td>
+                                        <td><t t-esc="record.ad_no"/></td>
+                                        <td><t t-esc="record.course_id.name"/></td>
+                                        <td>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <t t-if="record.state == 'done'">
+                                                    <h6>Done</h6>
+                                                </t>
+                                                <t t-elif="record.state == 'application'">
+                                                    <h6>Application</h6>
+                                                </t>
+                                                <t t-else="">
+                                                    <h6>Draft</h6>
+                                                </t>
+                                                <t t-if="record.state != 'done' and user">
+                                                    <button class="btn btn-primary btn-confirm" t-att-data-record-id="record.id">Confirm</button>
+                                                </t>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

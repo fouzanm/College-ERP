@@ -69,7 +69,6 @@ class CollegeAdmission(models.Model):
             else:
                 raise ValidationError("Add Attachment")
 
-
     @api.model
     def create(self, vals):
         """to create admission number"""
