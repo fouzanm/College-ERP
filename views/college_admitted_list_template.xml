@@ -7,7 +7,7 @@
                     <div class="container">
                         <h1 class="text-center">Admitted List</h1>
                         <br/>
-                        <table class="table table-bordered">
+                        <table id="admitted-table" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>SI No.</th>

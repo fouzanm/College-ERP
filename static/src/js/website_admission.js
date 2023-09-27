@@ -1,16 +1,22 @@
 odoo.define('college.website_admission', function (require) {
     "use strict";
-    var core = require('web.core');
     var rpc = require('web.rpc');
-    $('.btn-confirm').click(function(){
-        var record = $(this).data('record-id')
-        rpc.query({
-            route: '/admitted-list/confirm',
-            params: {
-                'record' : record
-            },
-        }).then(function(){
-            location.reload()
-        });
-    });
+    var publicWidget = require('web.public.widget');
+    publicWidget.registry.WebsiteAdmissionWidget = publicWidget.Widget.extend({
+        selector: '#admitted-table',
+        events: {
+            'click .btn-confirm': 'onClickButton',
+        },
+        onClickButton: function(ev){
+            var recordId = $(ev.currentTarget).data('record-id');
+            rpc.query({
+                route: '/admitted-list/confirm',
+                params: {
+                    'record' : record
+                },
+            }).then(function(){
+                location.reload()
+            });
+        },
+    })
 });
