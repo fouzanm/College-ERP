@@ -39,7 +39,7 @@
                 'college/static/src/js/action_manager.js',
             ],
             'web.assets_frontend': [
-                'college/static/src/js/website_admission.js'
+                'college/static/src/js/website_admission.js',
             ]
         },
     'application': True,

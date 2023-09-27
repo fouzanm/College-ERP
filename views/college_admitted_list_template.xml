@@ -2,7 +2,7 @@
 <odoo>
     <template id="admitted_list" name="Admitted List">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty pt">
+            <div id="wrap" class="oe_structure oe_empty">
                 <section class="s_website_form pt40 pb40" data-vcss="001" data-snippet="s_website_form">
                     <div class="container">
                         <h1 class="text-center">Admitted List</h1>
