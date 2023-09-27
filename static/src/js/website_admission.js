@@ -12,7 +12,7 @@ odoo.define('college.website_admission', function (require) {
             rpc.query({
                 route: '/admitted-list/confirm',
                 params: {
-                    'record' : record
+                    'record' : recordId
                 },
             }).then(function(){
                 location.reload()
