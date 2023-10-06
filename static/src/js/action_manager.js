@@ -3,7 +3,7 @@ import { registry } from "@web/core/registry";
 import { download } from "@web/core/network/download";
 import framework from 'web.framework';
 import session from 'web.session';
-registry.category("ir.actions.report handlers").add("xlsx", async (action) => {
+registry.category("ir.actions.report handlers").add("college_marksheet_xlsx", async (action) => {
    if (action.report_type === 'xlsx') {
        framework.blockUI();
        var def = $.Deferred();

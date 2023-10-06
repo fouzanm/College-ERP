@@ -153,7 +153,7 @@ class CollegeMarksheetWizard(models.TransientModel):
             report = self.env.cr.dictfetchall()
             data = {'report': report,
                     'report_type': self.report_type}
-            if not data:
+            if not data['report']:
                 raise MissingError("Mark Sheet does not exist or this Student "
                                    "didn't take the exam.")
             return {
