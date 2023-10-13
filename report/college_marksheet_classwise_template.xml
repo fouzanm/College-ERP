@@ -38,6 +38,8 @@
                                     <span>Pass / Fail</span>
                                 </th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <t t-foreach="report" t-as="line">
                                 <tr>
                                     <td class="text-center">
@@ -64,7 +66,7 @@
                                     </td>
                                 </tr>
                             </t>
-                        </thead>
+                        </tbody>
                     </table>
                 </div>
             </t>

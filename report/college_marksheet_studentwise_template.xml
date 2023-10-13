@@ -35,27 +35,29 @@
                                 </th>
                             </tr>
                         </thead>
-                        <t t-foreach="report" t-as="line">
-                            <tr>
-                                <td class="text-center">
-                                    <t t-esc="line['subject']"/>
-                                </td>
-                                <td class="text-end">
-                                    <t t-esc="line['obtained_mark']"/>
-                                </td>
-                                <td class="text-end">
-                                    <t t-esc="line['pass_mark']"/>
-                                </td>
-                                <td class="text-center">
-                                    <t t-if="line['pass_fail'] == True">
-                                        <h6>Pass</h6>
-                                    </t>
-                                    <t t-else="">
-                                        <h6>Fail</h6>
-                                    </t>
-                                </td>
-                            </tr>
-                        </t>
+                        <tbody>
+                            <t t-foreach="report" t-as="line">
+                                <tr>
+                                    <td class="text-center">
+                                        <t t-esc="line['subject']"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-esc="line['obtained_mark']"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-esc="line['pass_mark']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="line['pass_fail'] == True">
+                                            <h6>Pass</h6>
+                                        </t>
+                                        <t t-else="">
+                                            <h6>Fail</h6>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
                     </table>
                 </div>
             </t>

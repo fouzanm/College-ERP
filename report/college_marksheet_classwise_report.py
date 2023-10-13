@@ -2,7 +2,7 @@
 from odoo import api, models
 
 
-class CollegeMarksheetStudentwiseReport(models.AbstractModel):
+class CollegeMarksheetClasswiseReport(models.AbstractModel):
     _name = 'report.college.report_marksheet_classwise'
     _description = "College Marksheet Studentwise report Model"
 
