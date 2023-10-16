@@ -8,11 +8,9 @@ class CollegeMarksheetClasswiseReport(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        docs = self.env['college.marksheet.wizard'].browse(docids)
-        res = {
+        return {
             'doc_ids': docids,
             'doc_model': 'college.marksheet.wizard',
-            'docs': docs,
+            'docs': self.env['college.marksheet.wizard'].browse(docids),
             'data': data,
         }
-        return res

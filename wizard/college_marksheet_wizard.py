@@ -162,9 +162,9 @@ class CollegeMarksheetWizard(models.TransientModel):
                          'options': json.dumps(data,
                                                default=date_utils.json_default),
                          'output_format': 'xlsx',
-                         'report_name': 'Excel Report',
+                         'report_name': 'Student Marksheet',
                          },
-                'report_type': 'xlsx',
+                'report_type': 'marksheet_xlsx',
             }
         else:
             students = f"""select cm.students_id,cm.result,cm.total_mark,
@@ -236,9 +236,9 @@ class CollegeMarksheetWizard(models.TransientModel):
                          'options': json.dumps(data,
                                                default=date_utils.json_default),
                          'output_format': 'xlsx',
-                         'report_name': 'Excel Report',
+                         'report_name': 'Class Report',
                          },
-                'report_type': 'xlsx',
+                'report_type': 'marksheet_xlsx',
             }
 
     def get_xlsx_report(self, data, response):

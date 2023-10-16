@@ -83,14 +83,14 @@ class CollegeExam(models.Model):
         for record in exam:
             record._end_date_status()
 
-    @api.onchange('class_id')
+    @api.depends('class_id')
     def _compute_students_count(self):
         """used to calculate count of students who attended the exam."""
         for record in self:
             record.students_count = self.env['college.students'].search_count(
                 [('class_id', '=', record.class_id.id)])
 
-    @api.onchange('end_date')
+    @api.depends('end_date')
     def _compute_marksheet_count(self):
         """to compute generated marksheet count"""
         for record in self:
